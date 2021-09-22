@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(120deg, #f6d365, #fda085);
+  color: white;
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+}
+
+header {
+  font-size: 1.5rem;
+}
+
+header,
+form {
+  min-height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form input,
+form button {
+  padding: 0.5rem;
+  font-size: 2rem;
+  border: none;
+  background: white;
+}
+
+form button {
+  cursor: pointer;
+  color: #fda085;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+form button:hover {
+  background: #fda085;
+  color: white;
+}
+
+.todo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo {
+  display: flex;
+  font-size: 2rem;
+  background-color: white;
+  margin: 0.5rem;
+  color: #d88f7b;
+  transition: all 0.6s ease;
+}
+
+.todo-list {
+  min-width: 20%;
+  list-style: none;
+}
+
+.todo li input {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  border: none;
+  background: white;
+  color: black;
+  border-bottom: black;
+}
+
+.todo li input:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.todoInputFocus:focus {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  border: none;
+  color: #d88f7b;
+  border-bottom: 0.1rem solid #d88f7b;
+}
+
+.todo li,
+.todo-delete,
+.todo-edit,
+.todo-done {
+  font-size: 1.5rem;
+  display: inline;
+  padding: 0.5rem;
+}
+.todo-edit,
+.todo-delete,
+.todo-done {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  float: right;
+}
+
+.todo-delete {
+  color: rgb(104, 51, 2);
+  transition: all 0.3s ease;
+}
+
+.todo-delete:hover {
+  background: rgb(104, 51, 2);
+  color: white;
+}
+
+.todo-edit {
+  color: rgb(8, 133, 40);
+  transition: all 0.3s ease;
+}
+
+.todo-edit:hover {
+  background-color: rgb(8, 133, 40);
+  color: white;
+}
+
+.todo-done {
+  color: rgb(209, 118, 0);
+  transition: all 0.3s ease;
+}
+
+.todo-done:hover {
+  background-color: rgb(209, 118, 0);
+  color: white;
+}
+
+.fa-edit,
+.fa-trash-alt,
+.fa-check,
+.fa-clipboard-check {
+  pointer-events: none;
+}
+
+.todo-check li input {
+  text-decoration: line-through;
+}
+
+.todo-check {
+  opacity: 0.5;
+}
+
+.fall {
+  transform: translateY(8rem) rotateZ(20deg);
+  opacity: 0;
+}
