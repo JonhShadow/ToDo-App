@@ -3,7 +3,10 @@ const formButton = document.querySelector(".todo-button");
 const formInput = document.querySelector(".todo-input");
 const todoList = document.querySelector(".todo-list");
 
+let oldValue;
+
 //event listeners
+document.addEventListener("DOMContentLoaded", loadLocalStorage);
 formButton.addEventListener("click", addItemTodo);
 todoList.addEventListener("click", ItemTodoAction);
 
@@ -24,8 +27,12 @@ function addItemTodo(e, itemName) {
   // Create input
   const newInput = document.createElement("input");
   newInput.type = "text";
-  if (!itemName) newInput.value = formInput.value;
-  else newInput.value = itemName;
+  if (!itemName) {
+    newInput.value = formInput.value;
+    saveLocalStorage(formInput.value);
+  } else {
+    newInput.value = itemName;
+  }
   newInput.readOnly = true;
 
   newItem.appendChild(newInput);
@@ -65,6 +72,9 @@ function ItemTodoAction(e) {
   if (item.classList[0] === "todo-delete") {
     const todo = item.parentElement;
     todo.classList.add("fall");
+
+    deleteLocalStorage(todo.children[0].children[0].value);
+
     todo.addEventListener("transitionend", () => {
       todo.remove();
     });
@@ -85,7 +95,7 @@ function editItemTodo(e) {
   if (editButton.innerHTML == '<i class="fa fa-edit"></i>') {
     //console.log(e.path[2].children[0].children[0]);
     editButton.innerHTML = '<i class="fas fa-check"></i>';
-
+    oldValue = input.value;
     input.readOnly = false;
     input.classList.add("todoInputFocus");
     input.focus();
@@ -93,7 +103,46 @@ function editItemTodo(e) {
     editButton.innerHTML = '<i class="fa fa-edit"></i>';
 
     input.readOnly = true;
+    editLocalStorage(oldValue, input.value);
     input.classList.remove("todoInputFocus");
     input.focus();
   }
+}
+
+function saveLocalStorage(todo) {
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function loadLocalStorage() {
+  let todos = [];
+  if (localStorage.getItem("todos") === null) {
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+    for (i of todos) {
+      addItemTodo(null, i);
+    }
+  }
+}
+
+function deleteLocalStorage(todo) {
+  let todos = [];
+  todos = JSON.parse(localStorage.getItem("todos"));
+
+  todos.splice(todos.indexOf(todo), 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function editLocalStorage(oldVal, newVal) {
+  let todos = [];
+  todos = JSON.parse(localStorage.getItem("todos"));
+
+  todos[todos.indexOf(oldVal)] = newVal;
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
