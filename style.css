@@ -77,14 +77,6 @@ form button:hover {
   outline: none;
 }
 
-.todoInputFocus:focus {
-  padding: 0.5rem;
-  font-size: 1.5rem;
-  border: none;
-  color: #d88f7b;
-  border-bottom: 0.1rem solid #d88f7b;
-}
-
 .todo li,
 .todo-delete,
 .todo-edit,
@@ -117,6 +109,14 @@ form button:hover {
 .todo-edit {
   color: rgb(8, 133, 40);
   transition: all 0.3s ease;
+}
+.todo .todoInputFocus
+{
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  border: none;
+  color: #d88f7b;
+  border-bottom: 0.1rem solid #d88f7b;
 }
 
 .todo-edit:hover {
