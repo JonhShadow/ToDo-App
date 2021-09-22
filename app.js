@@ -8,8 +8,8 @@ formButton.addEventListener("click", addItemTodo);
 todoList.addEventListener("click", ItemTodoAction);
 
 //functions
-function addItemTodo(e) {
-  e.preventDefault();
+function addItemTodo(e, itemName) {
+  if (e != null) e.preventDefault();
 
   // Todo DIV
   const todoDiv = document.createElement("div");
@@ -24,7 +24,8 @@ function addItemTodo(e) {
   // Create input
   const newInput = document.createElement("input");
   newInput.type = "text";
-  newInput.value = formInput.value;
+  if (!itemName) newInput.value = formInput.value;
+  else newInput.value = itemName;
   newInput.readOnly = true;
 
   newItem.appendChild(newInput);
@@ -75,11 +76,11 @@ function ItemTodoAction(e) {
 }
 
 function editItemTodo(e) {
-  const input = e.path[2].children[0].children[0].children[0];
   const editButton = e.target;
+  const input = e.target.parentElement.children[0].children[0];
 
-  console.log(input);
-  console.log(editButton);
+  //console.log(input);
+  //console.log(editButton);
 
   if (editButton.innerHTML == '<i class="fa fa-edit"></i>') {
     //console.log(e.path[2].children[0].children[0]);
