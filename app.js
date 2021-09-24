@@ -1,3 +1,4 @@
+//localStorage.clear();
 // querySelector
 const formButton = document.querySelector(".todo-button");
 const formInput = document.querySelector(".todo-input");
@@ -33,6 +34,18 @@ function addItemTodo(e, itemName) {
   } else {
     newInput.value = itemName;
   }
+
+  // check if is done
+  let done;
+  if (localStorage.getItem("done") === null) {
+    done = [];
+  } else {
+    done = JSON.parse(localStorage.getItem("done"));
+  }
+  if (done.indexOf(newInput.value) >= 0) {
+    todoDiv.classList.add("todo-check");
+  }
+
   newInput.readOnly = true;
 
   newItem.appendChild(newInput);
@@ -82,6 +95,24 @@ function ItemTodoAction(e) {
     editItemTodo(e);
   } else if (item.classList[0] === "todo-done") {
     e.target.parentElement.classList.toggle("todo-check");
+    const input = e.target.parentElement.children[0].children[0].value;
+
+    let todos = JSON.parse(localStorage.getItem("todos"));
+
+    let done;
+    if (localStorage.getItem("done") === null) {
+      done = [];
+    } else {
+      done = JSON.parse(localStorage.getItem("done"));
+    }
+    if (done.indexOf(input) !== -1) {
+      //console.log(done.indexOf(input));
+      done.splice(done.indexOf(input), 1);
+      localStorage.setItem("done", JSON.stringify(done));
+    } else {
+      done.push(input);
+      localStorage.setItem("done", JSON.stringify(done));
+    }
   }
 }
 
@@ -137,6 +168,14 @@ function deleteLocalStorage(todo) {
 
   todos.splice(todos.indexOf(todo), 1);
   localStorage.setItem("todos", JSON.stringify(todos));
+
+  let done = [];
+  done = JSON.parse(localStorage.getItem("done"));
+
+  if (done.indexOf(todo) >= 0) {
+    done.splice(todos.indexOf(todo), 1);
+    localStorage.setItem("done", JSON.stringify(done));
+  }
 }
 
 function editLocalStorage(oldVal, newVal) {
@@ -145,4 +184,12 @@ function editLocalStorage(oldVal, newVal) {
 
   todos[todos.indexOf(oldVal)] = newVal;
   localStorage.setItem("todos", JSON.stringify(todos));
+
+  let done = [];
+  done = JSON.parse(localStorage.getItem("done"));
+
+  if (done.indexOf(oldVal) >= 0) {
+    done[done.indexOf(oldVal)] = newVal;
+    localStorage.setItem("done", JSON.stringify(done));
+  }
 }
